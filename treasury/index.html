@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treasury</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #000000;
+            color: #ffffff;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+        }
+        .treasure-img {
+            max-width: 80%;
+            height: auto;
+            margin-bottom: 20px;
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            object-fit: contain;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .amount {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #d4af37;
+            margin-bottom: 10px;
+        }
+        .explanation {
+            font-size: 1rem;
+            color: #888;
+            margin: 0 auto 20px auto;
+            max-width: 80%;
+        }
+        .desc {
+            font-size: 1.2rem;
+            color: #d4af37;
+            margin: 0 auto 20px auto;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 20px;
+            width: 80%;
+            background-color: #111111;
+            margin: 0 auto;
+        }
+        th, td {
+            border: 1px solid #444;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #d4af37;
+            color: black;
+        }
+        tr:nth-child(even) {
+            background-color: #222222;
+        }
+        h3 {
+            margin-top: 20px;
+            color: #d4af37;
+            margin-bottom: 10px;
+        }
+        .expandable {
+            cursor: pointer;
+            position: relative;
+        }
+        .expandable::after {
+            content: '▼';
+            font-size: 0.7rem;
+            margin-left: 5px;
+            color: #888;
+        }
+        .subtable {
+            display: none;
+            margin: 5px 0 5px 20px;
+            width: 90%;
+        }
+        .subtable td, .subtable th {
+            padding: 5px;
+            background-color: #333333;
+        }
+        .subtable th {
+            color: #d4af37;
+            background-color: #222222;
+        }
+        .active .subtable {
+            display: table;
+        }
+        .active::after {
+            content: '▲';
+        }
+        .tables-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            width: 100%;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        .table-section {
+            width: 100%;
+        }
+        .player-table {
+            margin-top: 10px;
+        }
+        .total-distributed {
+            font-size: 1.2rem;
+            color: #d4af37;
+            margin: 10px 0;
+        }
+        .next-distribution {
+            font-size: 1.1rem;
+            color: #5d9cec;
+            margin: 10px 0;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://replicate.delivery/xezq/M71iDM97qaYpGZVVxdJWkiInwmgrOlXRjY7yzjeJj4CLjQOKA/tmpj7io7_ws.webp" alt="Treasure Chest" class="treasure-img">
+        <div class="amount">$0</div>
+        <div class="explanation">The treasure is currently empty as we're just starting to collect revenue</div>
+        <div class="desc">This is a treasure of the Eldara game</div>
+        
+        <div class="tables-container">
+            <div class="table-section">
+                <h3>Here are the income sources</h3>
+                <table>
+                    <tr>
+                        <th>Source</th>
+                        <th>Amount</th>
+                    </tr>
+                    <tr>
+                        <td>Merch</td>
+                        <td>$0</td>
+                    </tr>
+                    <tr>
+                        <td>New players</td>
+                        <td>$0</td>
+                    </tr>
+                    <tr class="expandable" onclick="this.classList.toggle('active')">
+                        <td>Product placement</td>
+                        <td>$50</td>
+                    </tr>
+                    <tr style="display:none;">
+                        <td colspan="2">
+                            <table class="subtable" style="display:table;">
+                                <tr>
+                                    <th>Partner</th>
+                                    <th>Details</th>
+                                    <th>Amount</th>
+                                </tr>
+                                <tr>
+                                    <td>Guiness Beer</td>
+                                    <td>In-game placement</td>
+                                    <td>$50</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Direct PPC ads</td>
+                        <td>$0</td>
+                    </tr>
+                    <tr>
+                        <td>Tiktok monetization</td>
+                        <td>$0</td>
+                    </tr>
+                    <tr>
+                        <td>Content Licensing From Netflix</td>
+                        <td>$0</td>
+                    </tr>
+                    <tr>
+                        <td>Direct Patreon Donation</td>
+                        <td>$50</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="table-section">
+                <h3>How much we've already distributed to players</h3>
+                <table class="player-table">
+                    <tr>
+                        <th>Player</th>
+                        <th>Joined the game</th>
+                        <th>Amount</th>
+                        <th>To be distributed</th>
+                    </tr>
+                    <tr>
+                        <td>Mokiss</td>
+                        <td>Jan 2023</td>
+                        <td>$0</td>
+                        <td>$30</td>
+                    </tr>
+                    <tr>
+                        <td>Draeven Ironfist</td>
+                        <td>Mar 2023</td>
+                        <td>$0</td>
+                        <td>$30</td>
+                    </tr>
+                    <tr>
+                        <td>Shapeshifter</td>
+                        <td>Feb 2023</td>
+                        <td>$0</td>
+                        <td>$30</td>
+                    </tr>
+                </table>
+                <div class="total-distributed">Total distributed: $0</div>
+                <div class="next-distribution">Next Distribution: 100$ in 1 April</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Update total amount
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTotal();
+            setupExpandableRows();
+        });
+
+        function updateTotal() {
+            const totalIncome = 100; // Sum of Guinness ($50) and Patreon ($50)
+            const totalDistributed = 0; // No distributions yet
+            const toBeDistributed = 90; // $30 × 3 players
+            const treasuryBalance = totalIncome - totalDistributed;
+            
+            document.querySelector('.amount').textContent = '$' + treasuryBalance;
+            document.querySelector('.explanation').textContent = 
+                `Treasury balance after distributing rewards to players (Income: $${totalIncome}, Distributed: $${totalDistributed}, To be distributed: $${toBeDistributed})`;
+        }
+        
+        function setupExpandableRows() {
+            document.querySelectorAll('.expandable').forEach(row => {
+                row.addEventListener('click', function() {
+                    const subtableRow = this.nextElementSibling;
+                    if (subtableRow.style.display === 'none' || !subtableRow.style.display) {
+                        subtableRow.style.display = 'table-row';
+                    } else {
+                        subtableRow.style.display = 'none';
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html> 
