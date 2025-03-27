@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELDARA Game Marketplace</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0d1117;
+            color: #e6edf3;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #161b22;
+            padding: 20px 0;
+            border-bottom: 1px solid #30363d;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #58a6ff;
+        }
+        .user-nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .user-balance {
+            background-color: #0d1117;
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid #30363d;
+        }
+        .inventory-count {
+            color: #58a6ff;
+            font-weight: bold;
+        }
+        .main-content {
+            padding: 40px 0;
+        }
+        .filters {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            align-items: center;
+        }
+        .search-bar {
+            flex: 1;
+            max-width: 400px;
+        }
+        .search-input {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 4px;
+            border: 1px solid #30363d;
+            background-color: #0d1117;
+            color: #e6edf3;
+        }
+        .filter-options {
+            display: flex;
+            gap: 15px;
+        }
+        .filter-select {
+            padding: 10px 15px;
+            border-radius: 4px;
+            border: 1px solid #30363d;
+            background-color: #0d1117;
+            color: #e6edf3;
+        }
+        .items-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .item-row {
+            background-color: #161b22;
+            border-radius: 8px;
+            border: 1px solid #30363d;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+        }
+        .item-row:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .item-img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            background-color: #21262d;
+        }
+        .item-details {
+            flex: 1;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .item-info-container {
+            flex: 1;
+        }
+        .item-name {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        .legendary {
+            color: #ff7b00;
+        }
+        .rare {
+            color: #a335ee;
+        }
+        .uncommon {
+            color: #1eff00;
+        }
+        .common {
+            color: #ffffff;
+        }
+        .item-info {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            color: #8b949e;
+            margin-bottom: 10px;
+        }
+        .item-action {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .price-tag {
+            color: #f0b232;
+            font-weight: bold;
+        }
+        .exchange-items {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #8b949e;
+            font-size: 13px;
+        }
+        .exchange-item {
+            background-color: #21262d;
+            padding: 3px 6px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .exchange-item-icon {
+            width: 16px;
+            height: 16px;
+            background-color: #30363d;
+            border-radius: 3px;
+        }
+        .exchange-item-img {
+            width: 24px;
+            height: 24px;
+            border-radius: 3px;
+            object-fit: cover;
+        }
+        .exchange-item.rare {
+            border: 1px solid #a335ee;
+        }
+        .exchange-item.uncommon {
+            border: 1px solid #1eff00;
+        }
+        .exchange-item.common {
+            border: 1px solid #ffffff;
+        }
+        .exchange-item.legendary {
+            border: 1px solid #ff7b00;
+        }
+        .exchange-btn {
+            padding: 8px 16px;
+            background-color: #238636;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        .exchange-btn:hover {
+            background-color: #2ea043;
+        }
+        .section-title {
+            margin-bottom: 20px;
+            font-size: 22px;
+            color: #58a6ff;
+        }
+        .section-divider {
+            border-top: 1px solid #30363d;
+            margin: 40px 0 30px 0;
+        }
+        .trade-label {
+            display: inline-block;
+            padding: 4px 8px;
+            font-size: 11px;
+            border-radius: 4px;
+            margin-left: 10px;
+            font-weight: normal;
+            vertical-align: middle;
+        }
+        .label-special {
+            background-color: #8250df;
+            color: white;
+        }
+        .label-gold {
+            background-color: #f0b232;
+            color: black;
+        }
+        .label-irl {
+            background-color: #cf222e;
+            color: white;
+        }
+        .gold-item {
+            color: #f0b232;
+        }
+        .seller-info {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 13px;
+        }
+        .seller-avatar {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #21262d;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">ELDARA Marketplace</div>
+                <div class="user-nav">
+                    <div class="user-balance">Inventory: <span class="inventory-count">24</span> items</div>
+                    <a href="#" class="nav-link">Inventory</a>
+                    <a href="#" class="nav-link">My Listings</a>
+                    <a href="#" class="nav-link">History</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <div class="container">
+            <h2 class="section-title">Available Trades</h2>
+            
+            <div class="filters">
+                <div class="search-bar">
+                    <input type="text" class="search-input" placeholder="Search items...">
+                </div>
+                <div class="filter-options">
+                    <select class="filter-select">
+                        <option>All Categories</option>
+                        <option>Weapons</option>
+                        <option>Armor</option>
+                        <option>Potions</option>
+                        <option>Materials</option>
+                        <option>Collectibles</option>
+                    </select>
+                    <select class="filter-select">
+                        <option>All Rarities</option>
+                        <option>Common</option>
+                        <option>Uncommon</option>
+                        <option>Rare</option>
+                        <option>Legendary</option>
+                    </select>
+                    <select class="filter-select">
+                        <option>Sort By: Recent</option>
+                        <option>Sort By: Popularity</option>
+                        <option>Sort By: Rarity (High to Low)</option>
+                        <option>Sort By: Rarity (Low to High)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="items-list">
+                <div class="item-row">
+                    <img src="https://replicate.delivery/xezq/apujNxGIKd7KHRyF473wFl1Yk0Xq2GGXUaUxMbVQ52ZyMKHF/tmpmrkod3i1.webp" alt="Dragonfire Blade" class="item-img">
+                    <div class="item-details">
+                        <div class="item-info-container">
+                            <div class="item-name legendary">Dragonfire Blade</div>
+                            <div class="item-info">
+                                <span>Level 50</span>
+                                <div class="seller-info">
+                                    <img src="https://via.placeholder.com/20" class="seller-avatar">
+                                    <span>Draeven</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-action">
+                            <div class="exchange-items">
+                                <div class="exchange-item rare">
+                                    <img src="https://images.unsplash.com/photo-1635126160950-be5ab502e0be?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Dragon Scale" class="exchange-item-img">
+                                    <span>Dragon Scale ×2</span>
+                                </div>
+                                <span>+</span>
+                                <div class="exchange-item uncommon">
+                                    <img src="https://images.unsplash.com/photo-1526479742080-afc23a45a54b?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3" alt="Fire Essence" class="exchange-item-img">
+                                    <span>Fire Essence ×5</span>
+                                </div>
+                            </div>
+                            <button class="exchange-btn">Exchange</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item-row">
+                    <img src="https://via.placeholder.com/300/21262d/58a6ff?text=Armor" alt="Shadowhide Chestplate" class="item-img">
+                    <div class="item-details">
+                        <div class="item-info-container">
+                            <div class="item-name rare">Shadowhide Chestplate</div>
+                            <div class="item-info">
+                                <span>Level 42</span>
+                                <div class="seller-info">
+                                    <img src="https://via.placeholder.com/20" class="seller-avatar">
+                                    <span>Mokiss</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-action">
+                            <div class="exchange-items">
+                                <div class="exchange-item uncommon">
+                                    <div class="exchange-item-icon"></div>
+                                    <span>Shadow Leather ×3</span>
+                                </div>
+                                <span>+</span>
+                                <div class="exchange-item common">
+                                    <div class="exchange-item-icon"></div>
+                                    <span>Iron Ingot ×10</span>
+                                </div>
+                            </div>
+                            <button class="exchange-btn">Exchange</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-divider"></div>
+                
+                <h2 class="section-title">Special Trades <span class="trade-label label-special">New!</span></h2>
+                
+                <div class="item-row">
+                    <img src="https://replicate.delivery/xezq/uTYYGOHzVTJ1MtBBfbw1bd89QLtDF72f7Ld8GLBRU84k0ocUA/tmpgs9iz2s1.webp" alt="1vs1 Trade" class="item-img">
+                    <div class="item-details">
+                        <div class="item-info-container">
+                            <div class="item-name legendary">Staff of Unbridled Power</div>
+                            <div class="item-info">
+                                <span>Level 60</span>
+                                <div class="seller-info">
+                                    <img src="https://via.placeholder.com/20" class="seller-avatar">
+                                    <span>Shapeshifter</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-action">
+                            <div class="exchange-items">
+                                <div class="exchange-item legendary">
+                                    <div class="exchange-item-icon"></div>
+                                    <span>Nightfall Sword</span>
+                                </div>
+                            </div>
+                            <button class="exchange-btn">1:1 Trade</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item-row">
+                    <img src="https://replicate.delivery/xezq/fkSscsfUvlvtaEWlfneQaJOvU2VbKJocwfPuwQ5gKp4kjGljC/tmp6ca0g02e.webp" alt="Gold Trade" class="item-img">
+                    <div class="item-details">
+                        <div class="item-info-container">
+                            <div class="item-name rare">Enchanted Grimoire</div>
+                            <div class="item-info">
+                                <span>Magic Item</span>
+                                <div class="seller-info">
+                                    <img src="https://via.placeholder.com/20" class="seller-avatar">
+                                    <span>Draeven</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-action">
+                            <div class="exchange-items">
+                                <div class="exchange-item gold-item">
+                                    <div class="exchange-item-icon"></div>
+                                    <span>100 Gold</span>
+                                </div>
+                            </div>
+                            <button class="exchange-btn">Buy with Gold</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item-row">
+                    <img src="https://replicate.delivery/xezq/x0AN96J1qCoWPNHi78cOJyHwVeuhuOJyth9JuEzXNpjaaUOKA/tmp32kf5h2a.webp" alt="Real World Trade" class="item-img">
+                    <div class="item-details">
+                        <div class="item-info-container">
+                            <div class="item-name legendary">Continent Ownership Deed</div>
+                            <div class="item-info">
+                                <span>Ultra Rare</span>
+                                <div class="seller-info">
+                                    <img src="https://via.placeholder.com/20" class="seller-avatar">
+                                    <span>GameAdmin</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-action">
+                            <div class="exchange-items">
+                                <div class="exchange-item rare">
+                                    <div class="exchange-item-icon"></div>
+                                    <span>Real: Tesla Model X</span>
+                                </div>
+                            </div>
+                            <button class="exchange-btn">Trade for Real Car</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
